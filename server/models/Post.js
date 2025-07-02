@@ -98,3 +98,20 @@ PostSchema.methods.incrementViewCount = function () {
 };
 
 module.exports = mongoose.model('Post', PostSchema); 
+import express, { Router } from 'express';
+import{
+  getallposts,
+  getPostById,
+  createPost,
+  updatepost,
+  deletepost
+} from ',,/controllers/postcontroller.js';
+import auth from ',,/middleware/auth.js';
+import upload from',,/middleware/upload.js';
+ const router = express.Router();
+ router.get('/',getallposts);
+ router.get('/:id',getPostById);
+ router.post('/', auth,upload.single('image'), createPost);
+ router.put('/:id', auth, updatepost);
+ router.delete('/:id', auth, deletepost);
+ export default router;
